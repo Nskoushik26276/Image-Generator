@@ -3,6 +3,7 @@
 import torch
 from diffusers import StableDiffusionPipeline
 from IPython.display import display
+from PIL import Image
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -14,3 +15,12 @@ pipe = StableDiffusionPipeline.from_pretrained(
 
 image = pipe(description).images[0]
 display(image)
+
+output_path = "generated_image.png"
+image.save(output_path)
+
+def download_output_image(output_path):
+    from google.colab import files
+    files.download(output_path)
+
+download_output_image(output_path)
